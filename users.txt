@@ -1,0 +1,3 @@
+username,102300
+alex,82000
+aled,40600

@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="sredavni:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sredavni_jar</output-path>
+    <root id="archive" name="sredavni.jar">
+      <element id="module-output" name="sredavni" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/huxhorn/sulky/de.huxhorn.sulky.sounds-impl-jlayer/8.3.0/de.huxhorn.sulky.sounds-impl-jlayer-8.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/huxhorn/sulky/de.huxhorn.sulky.3rdparty.jlayer/1.0/de.huxhorn.sulky.3rdparty.jlayer-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/huxhorn/sulky/de.huxhorn.sulky.sounds-api/8.3.0/de.huxhorn.sulky.sounds-api-8.3.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
