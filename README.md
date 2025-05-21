@@ -8,8 +8,8 @@
 
 - Choose a **player name**
 - Press **Submit**, then **Play**
-- Use keyboard controls to **move left and right**
-- **Shoot upward** to destroy asteroids and enemies
+- Use keyboard controls to **move left**(A) **and right(S)**
+- **Shoot upward**(space) to destroy asteroids and enemies
 - **Avoid being hit** by enemies, lasers, or collisions
 - **Earn points** and try to beat the high score
 
