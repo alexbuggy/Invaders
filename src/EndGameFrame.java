@@ -30,7 +30,7 @@ public class EndGameFrame extends JFrame implements ActionListener {
         panel.setBackground(Color.BLACK);
 
         this.add(panel);
-        ImageIcon image=new ImageIcon("victory.png");
+        ImageIcon image=new ImageIcon("src/images/victory.png");
         label = new JLabel(image);
 
         panel.add(label);
@@ -39,11 +39,11 @@ public class EndGameFrame extends JFrame implements ActionListener {
         JTextArea textArea = new JTextArea();
 
 
-        ImageIcon image1=new ImageIcon("locu1.png");
+        ImageIcon image1=new ImageIcon("src/images/first_place.png");
         locu1 = new JLabel(image1);
-        ImageIcon image2=new ImageIcon("locu2.png");
+        ImageIcon image2=new ImageIcon("src/images/second_place.png");
         locu2 = new JLabel(image2);
-        ImageIcon image3=new ImageIcon("locu3.png");
+        ImageIcon image3=new ImageIcon("src/images/third_place.png");
         locu3 = new JLabel(image3);
         panel.add(locu1);
         panel.add(locu2);
@@ -71,7 +71,7 @@ public class EndGameFrame extends JFrame implements ActionListener {
         }
 
         try {
-            BufferedReader reader=new BufferedReader(new FileReader("users.txt"));
+            BufferedReader reader=new BufferedReader(new FileReader("src/Info/users.txt"));
             String Line;
 
             while((Line=reader.readLine())!=null) {
@@ -125,7 +125,7 @@ public class EndGameFrame extends JFrame implements ActionListener {
 
 
         try {
-            BufferedWriter writer= new BufferedWriter(new FileWriter("users.txt"));
+            BufferedWriter writer= new BufferedWriter(new FileWriter("src/Info/users.txt"));
 
 
             for (int i = 0; i < Math.min(3, entryList.size()); i++) {
@@ -174,7 +174,7 @@ public class EndGameFrame extends JFrame implements ActionListener {
 
 
 
-        ImageIcon icon = new ImageIcon("ast2.png");
+        ImageIcon icon = new ImageIcon("src/images/asteroid.png");
         this.setIconImage(icon.getImage());
 
 

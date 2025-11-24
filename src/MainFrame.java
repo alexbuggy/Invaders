@@ -11,13 +11,14 @@ public class MainFrame extends JFrame implements ActionListener {
     GamePanelTest panel;
     Timer timer;
     String NumePlayer;
+    Clip clip;
     public MainFrame(String Name) {
         System.out.println("MainFrame created with player name: " + Name);
-        ImageIcon icon = new ImageIcon("ast2.png");
+        ImageIcon icon = new ImageIcon("src/images/asteroid.png");
         this.setIconImage(icon.getImage());
         NumePlayer = Name;
         panel = new GamePanelTest();
-        playSound("invadersmusic.wav");
+        playSound("src/sounds/invadersmusic.wav");
         panel.mort=false;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panel);
@@ -36,7 +37,7 @@ public class MainFrame extends JFrame implements ActionListener {
         try {
             File audioFile = new File(soundFilePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
 
@@ -49,6 +50,12 @@ public class MainFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(panel.mort==true){
             timer.stop();
+
+            //Audio stops playing once you die
+            if (clip != null && clip.isRunning()) {
+                clip.stop();
+                clip.close();
+            }
             System.out.println("AI MURIT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             new EndGameFrame(NumePlayer,panel.getScore());
             System.out.println("EndGameFrame created.");

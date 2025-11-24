@@ -53,27 +53,27 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
     Timer timer;
 
-    ArrayList<AsteroidTest> asteroids = new ArrayList<>();
-    ArrayList<BulletTest> bullets = new ArrayList<>();
-    ArrayList<EnemyTest> enemies = new ArrayList<>();
-    ArrayList<EnemyBulletTest> enemyammo = new ArrayList<>();
+    ArrayList<Asteroid> asteroids = new ArrayList<>();
+    ArrayList<Bullet> bullets = new ArrayList<>();
+    ArrayList<Enemy> enemies = new ArrayList<>();
+    ArrayList<EnemyBullet> enemyammo = new ArrayList<>();
     ArrayList<EnemyType2> demons = new ArrayList<>();
     ArrayList<newHeart> hearts = new ArrayList<>();
 
 
     ArrayList<newHeart> heartsToRemove = new ArrayList<>();
-    ArrayList<AsteroidTest> asteroidsToRemove = new ArrayList<>();
-    ArrayList<BulletTest> bulletsToRemove = new ArrayList<>();
-    ArrayList<EnemyTest> enemiesToRemove = new ArrayList<>();
-    ArrayList<EnemyBulletTest> lasersToRemove = new ArrayList<>();
+    ArrayList<Asteroid> asteroidsToRemove = new ArrayList<>();
+    ArrayList<Bullet> bulletsToRemove = new ArrayList<>();
+    ArrayList<Enemy> enemiesToRemove = new ArrayList<>();
+    ArrayList<EnemyBullet> lasersToRemove = new ArrayList<>();
     ArrayList<EnemyType2> demonsToRemove = new ArrayList<>();
 
-    heart heart1=new heart(850,50,"heart.png");
-    heart heart2=new heart(900,50,"heart.png");
-    heart heart3=new heart(950,50,"heart.png");
+    heart heart1=new heart(850,50,"src/images/heart.png");
+    heart heart2=new heart(900,50,"src/images/heart.png");
+    heart heart3=new heart(950,50,"src/images/heart.png");
 
     Random random = new Random();
-    PlayerRocketTest player;
+    PlayerRocket player;
 
     GamePanelTest(){
         this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -81,7 +81,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        player=new PlayerRocketTest("rachetuca.png");
+        player=new PlayerRocket("src/images/rachetuca.png");
 
 
         timer=new Timer(16,this);
@@ -131,16 +131,16 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
 
-        for (EnemyTest enemy : enemies) {
+        for (Enemy enemy : enemies) {
             enemy.draw(g2D);
         }
-        for (AsteroidTest asteroid : asteroids) {
+        for (Asteroid asteroid : asteroids) {
             asteroid.draw(g2D);
         }
-        for (BulletTest bullet : bullets) {
+        for (Bullet bullet : bullets) {
             bullet.draw(g2D);
         }
-        for (EnemyBulletTest lasers : enemyammo) {
+        for (EnemyBullet lasers : enemyammo) {
             lasers.draw(g2D);
         }
         for (EnemyType2 demon : demons) {
@@ -205,7 +205,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
             player.moveRight();
         }
         if (activeKeys.contains(KeyEvent.VK_SPACE) && currentTime - lastBulletTime >= Bullet_SPAWN_DELAY) {
-            bullets.add(new BulletTest(player.x + player.image.getWidth(null) / 2 - 16, 1000 - player.image.getHeight(null) + 30, "bullet.png"));
+            bullets.add(new Bullet(player.x + player.image.getWidth(null) / 2 - 16, 1000 - player.image.getHeight(null) + 30, "src/images/bullet.png"));
             activeKeys.remove(KeyEvent.VK_SPACE);
             lastBulletTime = currentTime;
         }
@@ -214,7 +214,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
         ///MOVEMENT ASTEROIDS AND DELETE THEM IF THEY LEAVE THE SCREEN
-        for (AsteroidTest asteroid : asteroids) {
+        for (Asteroid asteroid : asteroids) {
             asteroid.move();
             if((int)asteroid.y<-20){
                 asteroidsToRemove.add(asteroid);
@@ -222,7 +222,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         }
 
         /// MOVEMENT BULLETS AND DELETE THEM IF THEY LEAVE THE SCREEN
-        for (BulletTest bullet : bullets) {
+        for (Bullet bullet : bullets) {
             bullet.move();
             if(bullet.getY()<-20){
                 bulletsToRemove.add(bullet);
@@ -249,12 +249,12 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         }
 
         /// MOVEMENT SPACESHIPS
-        for (EnemyTest enemy : enemies) {
+        for (Enemy enemy : enemies) {
             enemy.Move();
         }
 
         ///  MOVEMENT LASERS AND DELETE THEM IF THEY LEAVE THE SCREEN
-        for (EnemyBulletTest lasers : enemyammo) {
+        for (EnemyBullet lasers : enemyammo) {
             lasers.move();
             if(lasers.getY()<-20){
                 lasersToRemove.add(lasers);
@@ -272,8 +272,8 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
         ///  COLLISION BETWEEN BULLETS AND ASTEROIDS AND SCORE UP
-        for (BulletTest bullet : bullets) {
-            for (AsteroidTest asteroid : asteroids) {
+        for (Bullet bullet : bullets) {
+            for (Asteroid asteroid : asteroids) {
                 if (CheckCollision(bullet.x, (int)bullet.y, bullet.getWidth(), bullet.getHeight(), asteroid.x, (int)asteroid.y, asteroid.image.getWidth(null), asteroid.image.getHeight(null))) {
                     bulletsToRemove.add(bullet);
                     asteroidsToRemove.add(asteroid);
@@ -283,7 +283,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         }
 
         ///  COLLISION BETWEEN LASERS AND HEARTS
-        for (EnemyBulletTest lasers : enemyammo) {
+        for (EnemyBullet lasers : enemyammo) {
             for (newHeart heart : hearts) {
                 if (CheckCollision(lasers.x, (int)lasers.y, lasers.getWidth(), lasers.getHeight(), heart.x, (int)heart.y, heart.image.getWidth(null), heart.image.getHeight(null)) || CheckCollision(heart.x, (int)heart.y, heart.getWidth(), heart.getHeight(), lasers.x, (int)lasers.y, lasers.image.getWidth(null), lasers.image.getHeight(null))) {
                     lasersToRemove.add(lasers);
@@ -295,7 +295,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
         ///  COLLISION BETWEEN BULLETS AND DEMONS
-        for (BulletTest bullet : bullets) {
+        for (Bullet bullet : bullets) {
             for (EnemyType2 demon : demons) {
                 if (CheckCollision(bullet.x, (int)bullet.y, bullet.getWidth(), bullet.getHeight(), demon.x, (int)demon.y, demon.image.getWidth(null), demon.image.getHeight(null))) {
                     bulletsToRemove.add(bullet);
@@ -306,7 +306,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
         ///  COLISION BETWEEN PLAYER AND ASTEROIDS DELETION OF ASTEROID
-        for(AsteroidTest asteroid : asteroids)
+        for(Asteroid asteroid : asteroids)
             if(CheckCollision( asteroid.x, (int)asteroid.y, asteroid.image.getWidth(null)-20, asteroid.image.getHeight(null)-20,player.x, (int)player.y+15, player.image.getWidth(null)-10, player.image.getHeight(null)-10)){
                 asteroidsToRemove.add(asteroid);
                 player.takeDamage();
@@ -322,7 +322,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
             }
 
         ///  COLISION BETWEEN PLAYER AND LASERS AND DELETION OF LASER
-        for(EnemyBulletTest lasers : enemyammo)
+        for(EnemyBullet lasers : enemyammo)
             if(CheckCollision( lasers.x, (int)lasers.y, lasers.image.getWidth(null)-10, lasers.image.getHeight(null)-20,player.x, (int)player.y+15, player.image.getWidth(null)-10, player.image.getHeight(null)-10)){
                 lasersToRemove.add(lasers);
                 player.takeDamage();
@@ -340,8 +340,8 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
         ///  COLISION BETWEEN SPACESHIPS AND BULLETS AND DELETION OF BULLETS
-        for(EnemyTest enemy:enemies) {
-            for (BulletTest bullet : bullets) {
+        for(Enemy enemy:enemies) {
+            for (Bullet bullet : bullets) {
                 if (CheckCollision(bullet.x, (int) bullet.y, bullet.getWidth(), bullet.getHeight(), enemy.x, (int) enemy.y, enemy.image.getWidth(null), enemy.image.getHeight(null))) {
                     bulletsToRemove.add(bullet);
                     enemy.takeDamage();
@@ -350,7 +350,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         }
 
         ///  THE ENEMY REACHED PLAYERS LEVEL SO GAME OVER BUDDY
-        for(EnemyTest enemy:enemies) {
+        for(Enemy enemy:enemies) {
             if (enemy != null && enemy.y + enemy.image.getHeight(null) >= 1000 - player.image.getHeight(null) + 40) {
                 System.out.println("Enemy has reached the player's level.");
                 player.setHp(0);
@@ -358,7 +358,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         }
 
         ///  ENEMY DEAD SND SCORE UP
-        for(EnemyTest enemy:enemies) {
+        for(Enemy enemy:enemies) {
             if(enemy.getHp()==0){
                 player.score_Up(enemy.Value);
                 System.out.println("Enemy defeated, updating lastEnemyDeathTime");
@@ -377,7 +377,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
                 chance=random.nextInt(100);
                 if(player.getHp()<3){
                     if(chance<9){
-                        hearts.add(new newHeart(xdemon,ydemon,"heart.png"));
+                        hearts.add(new newHeart(xdemon,ydemon,"src/images/heart.png"));
                     }
                     System.out.println(chance);
                 }
@@ -387,7 +387,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
 
-        for(AsteroidTest asteroid : asteroids)
+        for(Asteroid asteroid : asteroids)
             if(asteroid.y>=PANEL_HEIGHT)
             {
                 asteroidsToRemove.add(asteroid);
@@ -431,7 +431,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
             while(lastRandom==randomX || (randomX+50>lastRandom && randomX<lastRandom) || (randomX<lastRandom+50 && randomX>lastRandom+50)){
                  randomX = MinXforAsteroids+random.nextInt(MaxXforAsteroids-MinXforAsteroids);
             }
-            demons.add(new EnemyType2(randomX, 0,"enemy2.png"));
+            demons.add(new EnemyType2(randomX, 0,"src/images/enemy2.png"));
             lastRandom=randomX;
         }
 
@@ -445,7 +445,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
             while(lastRandom==randomX || (randomX+50>lastRandom && randomX<lastRandom) || (randomX<lastRandom+50 && randomX>lastRandom+50)){
                 randomX = MinXforAsteroids+random.nextInt(MaxXforAsteroids-MinXforAsteroids);
             }
-            asteroids.add(new AsteroidTest(randomX, 0,speedRand, "ast2.png"));
+            asteroids.add(new Asteroid(randomX, 0,speedRand, "src/images/asteroid.png"));
             lastRandom=randomX;
         }
 
@@ -456,7 +456,7 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
         if (!enemySpawned && ((initialSpawn && currentTime - startTime >= INITIAL_SPAWN_DELAY) ||
                 (!initialSpawn && currentTime - lastEnemyDeathTime >= ENEMY_SPAWN_COOLDOWN))) {
 
-            enemies.add(new EnemyTest("enemy starship.png"));
+            enemies.add(new Enemy("src/images/enemy starship.png"));
             enemySpawned = true;
             lastEnemyDeathTime = currentTime;
             initialSpawn = false;
@@ -464,9 +464,9 @@ public class GamePanelTest extends JPanel implements ActionListener, KeyListener
 
 
 
-        for(EnemyTest enemy:enemies) {
+        for(Enemy enemy:enemies) {
             if(enemy.x+20<=player.x && enemy.x+enemy.image.getWidth(null)-20>=player.x && currentTime - lastLaserTime >= Laser_SPAWN_DELAY){
-                enemyammo.add(new EnemyBulletTest(player.x+player.image.getWidth(null)/2,enemy.y+enemy.image.getHeight(null),"laser.png"));
+                enemyammo.add(new EnemyBullet(player.x+player.image.getWidth(null)/2,enemy.y+enemy.image.getHeight(null),"src/images/laser.png"));
 
                 lastLaserTime=currentTime;
             }

@@ -17,7 +17,7 @@ public class IntroFrame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setLayout(null);
 
-        ImageIcon icon = new ImageIcon("ast2.png");
+        ImageIcon icon = new ImageIcon("src/images/asteroid.png");
         this.setIconImage(icon.getImage());
                     
 
